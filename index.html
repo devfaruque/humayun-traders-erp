@@ -1046,25 +1046,25 @@
                 <div class="grid grid-cols-3 gap-3">
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">কোম্পানি / ক্যাটাগরি</label>
-                        <input type="text" id="epCategory" required class="w-full px-3 py-2.5 rounded-xl bg-ash-50 border border-ash-300 font-semibold">
+                        <input type="text" id="epCategory" required class="w-full px-3.5 py-2.5 rounded-xl bg-ash-50 border border-ash-300 font-semibold">
                     </div>
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">সাইজ / একক</label>
-                        <input type="text" id="epUnit" required class="w-full px-3 py-2.5 rounded-xl bg-ash-50 border border-ash-300 font-bold text-blue-700">
+                        <input type="text" id="epUnit" required class="w-full px-3.5 py-2.5 rounded-xl bg-ash-50 border border-ash-300 font-bold text-blue-700">
                     </div>
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">মোট স্টক ইন (T. Rec.)</label>
-                        <input type="number" id="epStock" required min="0" step="any" class="w-full px-3 py-2.5 rounded-xl bg-ash-50 border border-ash-300 font-bold">
+                        <input type="number" id="epStock" required min="0" step="any" class="w-full px-3.5 py-2.5 rounded-xl bg-ash-50 border border-ash-300 font-bold">
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">ক্রয়মূল্য (Receive Price ৳)</label>
-                        <input type="number" id="epBuy" required min="0" step="any" class="w-full px-3 py-2.5 rounded-xl bg-ash-50 border border-ash-300 font-bold">
+                        <input type="number" id="epBuy" required min="0" step="any" class="w-full px-3.5 py-2.5 rounded-xl bg-ash-50 border border-ash-300 font-bold">
                     </div>
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">বিক্রয়মূল্য (ঐচ্ছিক ৳)</label>
-                        <input type="number" id="epSell" min="0" step="any" class="w-full px-3 py-2.5 rounded-xl bg-ash-50 border border-ash-300 font-bold">
+                        <input type="number" id="epSell" min="0" step="any" class="w-full px-3.5 py-2.5 rounded-xl bg-ash-50 border border-ash-300 font-bold">
                     </div>
                 </div>
                 <div class="pt-3 flex justify-end gap-2.5">
@@ -1120,7 +1120,115 @@
         </div>
     </div>
 
-    <!-- ==================== MODAL 6: CASH MEMO / INVOICE PRINT ==================== -->
+    <!-- ==================== MODAL 6: EDIT COMPUTER COMPOSE LOG ==================== -->
+    <div id="editComposeModal" class="no-print fixed inset-0 bg-slate-700/50 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-ash-200">
+            <div class="flex justify-between items-center border-b border-ash-200 pb-3.5 mb-4">
+                <h3 class="text-lg font-extrabold text-indigo-800"><i class="fa-solid fa-pen-to-square mr-1.5"></i> কম্পিউটার কম্পোজ হিসাব সংশোধন</h3>
+                <button onclick="closeEditComposeModal()" class="text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="saveEditCompose(event)" class="space-y-4 text-sm">
+                <input type="hidden" id="ecId">
+                <div><label class="block font-bold mb-1">তারিখ</label><input type="date" id="ecDate" required class="w-full px-3.5 py-2 rounded-xl bg-ash-50 border font-bold"></div>
+                <div>
+                    <label class="block font-bold mb-1">লেনদেনের ধরন</label>
+                    <select id="ecType" class="w-full px-3.5 py-2 rounded-xl bg-ash-50 border font-bold">
+                        <option value="INCOME">আয়: কম্পিউটার কম্পোজ / প্রিন্ট (+)</option>
+                        <option value="EXPENSE">খরচ: কাগজ, কালি / টোনার (-)</option>
+                    </select>
+                </div>
+                <div><label class="block font-bold mb-1">কাজের বিবরণ</label><input type="text" id="ecTitle" required class="w-full px-3.5 py-2 rounded-xl bg-ash-50 border font-semibold"></div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div><label class="block font-bold mb-1">পরিমাণ (৳)</label><input type="number" id="ecAmount" required min="1" class="w-full px-3 py-2 rounded-xl bg-ash-50 border font-extrabold text-indigo-700"></div>
+                    <div>
+                        <label class="block font-bold mb-1">মাধ্যম</label>
+                        <select id="ecMethod" class="w-full px-3 py-2 rounded-xl bg-ash-50 border font-bold">
+                            <option value="Cash">Cash</option>
+                            <option value="Bank">Bank</option>
+                        </select>
+                    </div>
+                </div>
+                <div><label class="block font-bold mb-1">কাস্টমার / নোট</label><input type="text" id="ecNote" class="w-full px-3.5 py-2 rounded-xl bg-ash-50 border"></div>
+                <div class="pt-2 flex justify-end gap-2">
+                    <button type="button" onclick="closeEditComposeModal()" class="px-4 py-2 rounded-xl bg-ash-100 font-bold">বাতিল</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-indigo-600 text-white font-bold">আপডেট সেভ করুন</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL 7: EDIT BANK TRANSACTION ==================== -->
+    <div id="editBankModal" class="no-print fixed inset-0 bg-slate-700/50 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-ash-200">
+            <div class="flex justify-between items-center border-b border-ash-200 pb-3.5 mb-4">
+                <h3 class="text-lg font-extrabold text-sky-800"><i class="fa-solid fa-pen-to-square mr-1.5"></i> ব্যাংক ও চেক লেনদেন সংশোধন</h3>
+                <button onclick="closeEditBankModal()" class="text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="saveEditBankTx(event)" class="space-y-4 text-sm">
+                <input type="hidden" id="ebId">
+                <div><label class="block font-bold mb-1">তারিখ</label><input type="date" id="ebDate" required class="w-full px-3.5 py-2 rounded-xl bg-ash-50 border font-bold"></div>
+                <div>
+                    <label class="block font-bold mb-1">লেনদেনের ধরন</label>
+                    <select id="ebType" class="w-full px-3.5 py-2 rounded-xl bg-ash-50 border font-bold">
+                        <option value="DEPOSIT">ক্যাশ থেকে ব্যাংকে জমা (Cash → Bank)</option>
+                        <option value="WITHDRAW">ব্যাংক থেকে নগদ উত্তোলন (Bank → Cash)</option>
+                        <option value="BANK_IN">সরাসরি ব্যাংকে জমা / চেক আদায় (+ Bank)</option>
+                        <option value="BANK_OUT">ব্যাংক থেকে পেমেন্ট / চার্জ (- Bank)</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div><label class="block font-bold mb-1">ব্যাংকের নাম</label><input type="text" id="ebBankName" required class="w-full px-3 py-2 rounded-xl bg-ash-50 border font-semibold"></div>
+                    <div><label class="block font-bold mb-1">চেক / স্লিপ নং</label><input type="text" id="ebRef" class="w-full px-3 py-2 rounded-xl bg-ash-50 border"></div>
+                </div>
+                <div><label class="block font-bold mb-1">টাকার পরিমাণ (৳)</label><input type="number" id="ebAmount" required min="1" class="w-full px-3 py-2 rounded-xl bg-ash-50 border font-extrabold text-sky-700"></div>
+                <div><label class="block font-bold mb-1">বিবরণ / নোট</label><input type="text" id="ebNote" class="w-full px-3 py-2 rounded-xl bg-ash-50 border"></div>
+                <div class="pt-2 flex justify-end gap-2">
+                    <button type="button" onclick="closeEditBankModal()" class="px-4 py-2 rounded-xl bg-ash-100 font-bold">বাতিল</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-sky-600 text-white font-bold">আপডেট সেভ করুন</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL 8: EDIT SALES / PURCHASE STOCK LOG ==================== -->
+    <div id="editStockLogModal" class="no-print fixed inset-0 bg-slate-700/50 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-xl border border-ash-200">
+            <div class="flex justify-between items-center border-b border-ash-200 pb-3.5 mb-4">
+                <h3 id="eslModalHeading" class="text-lg font-extrabold text-blue-800"><i class="fa-solid fa-pen-to-square mr-1.5"></i> ক্রয় / বিক্রয় এন্ট্রি সংশোধন</h3>
+                <button onclick="closeEditStockLogModal()" class="text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="saveEditStockLog(event)" class="space-y-4 text-sm">
+                <input type="hidden" id="eslId">
+                <div class="p-3 rounded-xl bg-blue-50 border border-blue-200 font-bold text-blue-900" id="eslProductBanner"></div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div><label class="block font-bold mb-1">তারিখ</label><input type="date" id="eslDate" required class="w-full px-3 py-2 rounded-xl bg-ash-50 border font-bold"></div>
+                    <div><label class="block font-bold mb-1">কাস্টমার / ডিলারের নাম</label><input type="text" id="eslParty" required class="w-full px-3 py-2 rounded-xl bg-ash-50 border font-semibold"></div>
+                </div>
+                <div class="grid grid-cols-3 gap-3 bg-ash-100 p-3 rounded-xl">
+                    <div><label class="block text-xs font-bold mb-1">পরিমাণ (Qty)</label><input type="number" id="eslQty" required min="0.1" step="any" oninput="calcEditStockLogTotal()" class="w-full px-2.5 py-2 rounded-lg bg-white border font-extrabold"></div>
+                    <div><label id="eslRateLabel" class="block text-xs font-bold mb-1">একক দর (৳)</label><input type="number" id="eslRate" required min="0" step="any" oninput="calcEditStockLogTotal()" class="w-full px-2.5 py-2 rounded-lg bg-white border font-extrabold text-blue-700"></div>
+                    <div><label class="block text-xs font-bold mb-1">মোট বিল (৳)</label><input type="number" id="eslTotal" readonly class="w-full px-2.5 py-2 rounded-lg bg-ash-200 font-extrabold"></div>
+                </div>
+                <div class="grid grid-cols-3 gap-3">
+                    <div><label class="block text-xs font-bold text-emerald-700 mb-1">পরিশোধিত / জমা (৳)</label><input type="number" id="eslPaid" required min="0" step="any" oninput="calcEditStockLogDue()" class="w-full px-2.5 py-2 rounded-xl bg-white border-2 border-emerald-400 font-extrabold text-emerald-700"></div>
+                    <div>
+                        <label class="block text-xs font-bold text-sky-800 mb-1">মাধ্যম</label>
+                        <select id="eslMethod" class="w-full px-2.5 py-2 rounded-xl bg-sky-50 border border-sky-300 font-bold">
+                            <option value="Cash">Cash</option>
+                            <option value="Bank">Bank</option>
+                        </select>
+                    </div>
+                    <div><label class="block text-xs font-bold text-orange-600 mb-1">বাকি (Due ৳)</label><input type="number" id="eslDue" readonly class="w-full px-2.5 py-2 rounded-xl bg-orange-50 border border-orange-200 font-extrabold text-orange-600"></div>
+                </div>
+                <div class="pt-2 flex justify-end gap-2">
+                    <button type="button" onclick="closeEditStockLogModal()" class="px-4 py-2 rounded-xl bg-ash-100 font-bold">বাতিল</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-blue-600 text-white font-bold">আপডেট ও সমন্বয় করুন</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL 9: CASH MEMO / INVOICE PRINT ==================== -->
     <div id="memoModal" class="fixed inset-0 bg-slate-800/60 backdrop-blur-xs z-[65] hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-ash-200">
             <div id="memoPrintArea" class="space-y-4">
@@ -1204,13 +1312,13 @@
             parties: [],
             expenses: [],
             settings: {
-             CompanyName: 'মেসার্স হুমায়ুন ট্রেডার্স',
-             OwnerName: 'হুমায়ুন কবির',
-             CashInHand: 0,
-             BankBalance: 0,
-             FixedAssets: 0,
-             ComposeIncome: 0
-         }
+                CompanyName: 'মেসার্স হুমায়ুন ট্রেডার্স',
+                OwnerName: 'হুমায়ুন কবির',
+                CashInHand: 0,
+                BankBalance: 0,
+                FixedAssets: 0,
+                ComposeIncome: 0
+            }
         };
 
         // ==================== BILINGUAL DICTIONARY (বাংলা | English) ====================
@@ -1277,7 +1385,7 @@
                 bankFormTitle: 'নতুন ব্যাংক ও চেক লেনদেন',
                 bankLedgerTitle: 'ব্যাংক ও চেক লেনদেন খতিয়ান (Bank Ledger)',
                 salesFormTitle: 'পণ্য বিক্রয় ও ক্যাশ মেমো (POS)',
-                recentSalesTitle: 'সাম্প্রতিক বিক্রয় (মেমো প্রিন্ট ও ডিলিট)',
+                recentSalesTitle: 'সাম্প্রতিক বিক্রয় (মেমো, এডিট ও ডিলিট)',
                 purTitle: 'মাল ক্রয় ও স্টক ইন (সরাসরি পণ্যের নাম লিখে এন্ট্রি)',
                 purSub: 'নতুন বা পুরোনো যেকোনো পণ্যের নাম সরাসরি লিখে স্টকে যোগ করুন',
                 repBookTitle: 'কেনা-বেচার রিপোর্ট খাতা (মাসিক ও তারিখ ভিত্তিক)',
@@ -1345,7 +1453,7 @@
                 bankFormTitle: 'New Bank & Check Transaction',
                 bankLedgerTitle: 'Bank & Check Transaction Ledger',
                 salesFormTitle: 'Product Sales & Cash Memo (POS)',
-                recentSalesTitle: 'Recent Sales (Memo Print & Delete)',
+                recentSalesTitle: 'Recent Sales (Memo, Edit & Delete)',
                 purTitle: 'Purchase & Stock In (Direct Product Name Entry)',
                 purSub: 'Type any new or existing product name directly to add stock',
                 repBookTitle: 'Stock & Sales Report Book (Date & Monthly Filter)',
@@ -1371,7 +1479,6 @@
             refreshAllViews();
         }
 
-        // Logo Fallback & Custom Picker
         const fallbackLogos = ['logo.png', 'Logo.png', 'logo.jpg', 'Humayun Traders.jpg'];
         function loadFallbackLogo(imgEl) {
             const saved = localStorage.getItem('ht_erp_logo');
@@ -1393,7 +1500,6 @@
             reader.readAsDataURL(file);
         }
 
-        // Auth Handlers
         function togglePasswordVisibility() {
             const inp = document.getElementById('loginPassword');
             const icon = document.getElementById('eyeIcon');
@@ -1435,7 +1541,6 @@
             loadAllData(false);
         }
 
-        // Helpers
         function formatBanglaDate(isoDateStr) {
             if (!isoDateStr || isoDateStr === '-') return '-';
             const d = new Date(isoDateStr);
@@ -1492,7 +1597,6 @@
             return prefix + (maxNum + 1);
         }
 
-        // Load All Data from Supabase (Including Banking)
         async function loadAllData(showNotify = false) {
             setSyncing(true);
             try {
@@ -1544,7 +1648,6 @@
             await sbClient.from('settings').upsert({ setting_key: key, setting_value: String(newVal) });
         }
 
-        // Init App
         async function initApp() {
             applyLanguage();
             const savedLogo = localStorage.getItem('ht_erp_logo');
@@ -1567,7 +1670,6 @@
             }
         }
 
-        // Master Render
         function refreshAllViews() {
             const cashInHand = Number(db.settings.CashInHand) || 0;
             const bankBalance = Number(db.settings.BankBalance) || 0;
@@ -1617,14 +1719,12 @@
             const totalReceivable = customers.reduce((s, c) => s + (Number(c.balance) || 0), 0);
             const totalPayable = suppliers.reduce((s, d) => s + (Number(d.balance) || 0), 0);
 
-            // Badges & Hero Cards
             document.getElementById('navPaintBadge').innerText = paintProducts.length;
             document.getElementById('navHwBadge').innerText = hwProducts.length;
             document.getElementById('heroStockValue').innerText = formatBDT(totalStockValue);
             document.getElementById('heroCashBalance').innerText = formatBDT(cashInHand);
             document.getElementById('heroBankBalance').innerText = formatBDT(bankBalance);
 
-            // Banking Page Summary Cards
             document.getElementById('bankPageCashVal').innerText = formatBDT(cashInHand);
             document.getElementById('bankPageBankVal').innerText = formatBDT(bankBalance);
             document.getElementById('bankPageTotalLiquid').innerText = formatBDT(cashInHand + bankBalance);
@@ -1663,7 +1763,7 @@
             renderBalanceAndTrial({ netProfit, cashInHand, bankBalance, fixedAssets, totalStockValue, totalReceivable, totalPayable });
         }
 
-        // ==================== BANKING & CHECK TRANSACTIONS ====================
+        // ==================== BANKING & CHECK TRANSACTIONS (ADD / EDIT / DELETE) ====================
         async function handleBankTxSubmit(e) {
             e.preventDefault();
             setSyncing(true);
@@ -1731,11 +1831,74 @@
                         <td class="py-3 px-3 text-slate-500 text-xs">${escapeHTML(b.note)}</td>
                         <td class="py-3 px-3 text-right font-extrabold text-sky-800">${formatBDT(b.amount)}</td>
                         <td class="no-print py-3 px-3 text-center">
-                            <button onclick="deleteBankTx('${escapeHTML(b.bank_tx_id)}')" class="p-1.5 rounded bg-rose-50 hover:bg-rose-600 hover:text-white text-rose-600 text-xs"><i class="fa-solid fa-trash"></i></button>
+                            <div class="inline-flex gap-1.5">
+                                <button onclick="openEditBankModal('${escapeHTML(b.bank_tx_id)}')" title="এডিট" class="p-1.5 rounded bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-600 text-xs"><i class="fa-solid fa-pen"></i></button>
+                                <button onclick="deleteBankTx('${escapeHTML(b.bank_tx_id)}')" title="ডিলিট" class="p-1.5 rounded bg-rose-50 hover:bg-rose-600 hover:text-white text-rose-600 text-xs"><i class="fa-solid fa-trash"></i></button>
+                            </div>
                         </td>
                     </tr>
                 `;
             }).join('');
+        }
+
+        function openEditBankModal(txId) {
+            const b = db.bankTransactions.find(x => x.bank_tx_id === txId);
+            if (!b) return;
+            document.getElementById('ebId').value = b.bank_tx_id;
+            document.getElementById('ebDate').value = String(b.tx_date || '').slice(0, 10);
+            document.getElementById('ebType').value = b.tx_type;
+            document.getElementById('ebBankName').value = b.bank_name;
+            document.getElementById('ebRef').value = b.ref_no || '';
+            document.getElementById('ebAmount').value = b.amount;
+            document.getElementById('ebNote').value = b.note || '';
+            document.getElementById('editBankModal').classList.remove('hidden');
+        }
+        function closeEditBankModal() { document.getElementById('editBankModal').classList.add('hidden'); }
+
+        async function saveEditBankTx(e) {
+            e.preventDefault();
+            setSyncing(true);
+            try {
+                const txId = document.getElementById('ebId').value;
+                const oldTx = db.bankTransactions.find(x => x.bank_tx_id === txId);
+                let cash = Number(db.settings.CashInHand) || 0;
+                let bank = Number(db.settings.BankBalance) || 0;
+
+                if (oldTx) {
+                    const oldAmt = Number(oldTx.amount) || 0;
+                    if (oldTx.tx_type === 'DEPOSIT') { cash += oldAmt; bank -= oldAmt; }
+                    else if (oldTx.tx_type === 'WITHDRAW') { bank += oldAmt; cash -= oldAmt; }
+                    else if (oldTx.tx_type === 'BANK_IN') { bank -= oldAmt; }
+                    else if (oldTx.tx_type === 'BANK_OUT') { bank += oldAmt; }
+                }
+
+                const newType = document.getElementById('ebType').value;
+                const newAmt = Number(document.getElementById('ebAmount').value) || 0;
+                if (newType === 'DEPOSIT') { cash -= newAmt; bank += newAmt; }
+                else if (newType === 'WITHDRAW') { bank -= newAmt; cash += newAmt; }
+                else if (newType === 'BANK_IN') { bank += newAmt; }
+                else if (newType === 'BANK_OUT') { bank -= newAmt; }
+
+                const { error } = await sbClient.from('bank_transactions').update({
+                    tx_date: document.getElementById('ebDate').value,
+                    tx_type: newType,
+                    bank_name: document.getElementById('ebBankName').value.trim(),
+                    ref_no: document.getElementById('ebRef').value.trim(),
+                    note: document.getElementById('ebNote').value.trim(),
+                    amount: newAmt
+                }).eq('bank_tx_id', txId);
+                if (error) throw error;
+
+                await updateSettingValue('CashInHand', cash);
+                await updateSettingValue('BankBalance', bank);
+                closeEditBankModal();
+                await loadAllData(false);
+                showToast('ব্যাংক লেনদেন সংশোধন হয়েছে!');
+            } catch (err) {
+                showToast('ত্রুটি: ' + err.message, true);
+            } finally {
+                setSyncing(false);
+            }
         }
 
         async function deleteBankTx(txId) {
@@ -1839,8 +2002,8 @@
                             <td class="py-2 px-2.5 text-right font-extrabold text-indigo-900 bg-indigo-50/40 border border-ash-300">${formatBDT(totalStkPri)}</td>
                             <td class="no-print py-2 px-2 text-center border border-ash-300">
                                 <div class="inline-flex gap-1">
-                                    <button onclick="openEditProductModal('${escapeHTML(p.product_id)}')" class="p-1.5 rounded bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-600 text-xs"><i class="fa-solid fa-pen"></i></button>
-                                    <button onclick="deleteProduct('${escapeHTML(p.product_id)}', '${escapeHTML(p.product_name)} (${escapeHTML(sz)})')" class="p-1.5 rounded bg-rose-50 hover:bg-rose-600 hover:text-white text-rose-600 text-xs"><i class="fa-solid fa-trash"></i></button>
+                                    <button onclick="openEditProductModal('${escapeHTML(p.product_id)}')" title="এডিট" class="p-1.5 rounded bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-600 text-xs"><i class="fa-solid fa-pen"></i></button>
+                                    <button onclick="deleteProduct('${escapeHTML(p.product_id)}', '${escapeHTML(p.product_name)} (${escapeHTML(sz)})')" title="ডিলিট" class="p-1.5 rounded bg-rose-50 hover:bg-rose-600 hover:text-white text-rose-600 text-xs"><i class="fa-solid fa-trash"></i></button>
                                 </div>
                             </td>
                         </tr>
@@ -1887,8 +2050,8 @@
                         <td class="py-3 px-3 text-right font-extrabold text-slate-800">${formatBDT(stkVal)}</td>
                         <td class="no-print py-3 px-3 text-center">
                             <div class="inline-flex gap-1.5">
-                                <button onclick="openEditProductModal('${escapeHTML(p.product_id)}')" class="p-1.5 rounded bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-600 text-xs"><i class="fa-solid fa-pen"></i></button>
-                                <button onclick="deleteProduct('${escapeHTML(p.product_id)}', '${escapeHTML(p.product_name)}')" class="p-1.5 rounded bg-rose-50 hover:bg-rose-600 hover:text-white text-rose-600 text-xs"><i class="fa-solid fa-trash"></i></button>
+                                <button onclick="openEditProductModal('${escapeHTML(p.product_id)}')" title="এডিট" class="p-1.5 rounded bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-600 text-xs"><i class="fa-solid fa-pen"></i></button>
+                                <button onclick="deleteProduct('${escapeHTML(p.product_id)}', '${escapeHTML(p.product_name)}')" title="ডিলিট" class="p-1.5 rounded bg-rose-50 hover:bg-rose-600 hover:text-white text-rose-600 text-xs"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -1896,7 +2059,7 @@
             }).join('');
         }
 
-        // ==================== COMPUTER COMPOSE DIVISION (CASH / BANK) ====================
+        // ==================== COMPUTER COMPOSE DIVISION (ADD / EDIT / DELETE) ====================
         async function handleComposeSubmit(e) {
             e.preventDefault();
             setSyncing(true);
@@ -1960,11 +2123,68 @@
                         <td class="py-3 px-3 text-xs font-bold text-sky-700">${escapeHTML(c.payment_method || 'Cash')}</td>
                         <td class="py-3 px-3 text-right font-extrabold ${isInc ? 'text-emerald-700' : 'text-orange-600'}">${formatBDT(c.amount)}</td>
                         <td class="no-print py-3 px-3 text-center">
-                            <button onclick="deleteComposeLog('${escapeHTML(c.compose_id)}')" class="p-1.5 rounded bg-rose-50 hover:bg-rose-600 hover:text-white text-rose-600 text-xs"><i class="fa-solid fa-trash"></i></button>
+                            <div class="inline-flex gap-1.5">
+                                <button onclick="openEditComposeModal('${escapeHTML(c.compose_id)}')" title="এডিট" class="p-1.5 rounded bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-600 text-xs"><i class="fa-solid fa-pen"></i></button>
+                                <button onclick="deleteComposeLog('${escapeHTML(c.compose_id)}')" title="ডিলিট" class="p-1.5 rounded bg-rose-50 hover:bg-rose-600 hover:text-white text-rose-600 text-xs"><i class="fa-solid fa-trash"></i></button>
+                            </div>
                         </td>
                     </tr>
                 `;
             }).join('');
+        }
+
+        function openEditComposeModal(compId) {
+            const c = db.composeLogs.find(x => x.compose_id === compId);
+            if (!c) return;
+            document.getElementById('ecId').value = c.compose_id;
+            document.getElementById('ecDate').value = String(c.log_date || '').slice(0, 10);
+            document.getElementById('ecType').value = c.entry_type;
+            document.getElementById('ecTitle').value = c.service_title;
+            document.getElementById('ecAmount').value = c.amount;
+            document.getElementById('ecMethod').value = c.payment_method || 'Cash';
+            document.getElementById('ecNote').value = c.customer_or_note || '';
+            document.getElementById('editComposeModal').classList.remove('hidden');
+        }
+        function closeEditComposeModal() { document.getElementById('editComposeModal').classList.add('hidden'); }
+
+        async function saveEditCompose(e) {
+            e.preventDefault();
+            setSyncing(true);
+            try {
+                const compId = document.getElementById('ecId').value;
+                const oldItem = db.composeLogs.find(x => x.compose_id === compId);
+                if (oldItem) {
+                    const oldKey = oldItem.payment_method === 'Bank' ? 'BankBalance' : 'CashInHand';
+                    const oldBal = Number(db.settings[oldKey]) || 0;
+                    const oldAmt = Number(oldItem.amount) || 0;
+                    await updateSettingValue(oldKey, oldItem.entry_type === 'INCOME' ? oldBal - oldAmt : oldBal + oldAmt);
+                }
+
+                const newType = document.getElementById('ecType').value;
+                const newAmt = Number(document.getElementById('ecAmount').value) || 0;
+                const newMethod = document.getElementById('ecMethod').value;
+                const newKey = newMethod === 'Bank' ? 'BankBalance' : 'CashInHand';
+                const curBal = Number(db.settings[newKey]) || 0;
+                await updateSettingValue(newKey, newType === 'INCOME' ? curBal + newAmt : curBal - newAmt);
+
+                const { error } = await sbClient.from('compose_logs').update({
+                    log_date: document.getElementById('ecDate').value,
+                    entry_type: newType,
+                    service_title: document.getElementById('ecTitle').value.trim(),
+                    customer_or_note: document.getElementById('ecNote').value.trim(),
+                    amount: newAmt,
+                    payment_method: newMethod
+                }).eq('compose_id', compId);
+                if (error) throw error;
+
+                closeEditComposeModal();
+                await loadAllData(false);
+                showToast('কম্পোজ হিসাব সংশোধন হয়েছে!');
+            } catch (err) {
+                showToast('ত্রুটি: ' + err.message, true);
+            } finally {
+                setSyncing(false);
+            }
         }
 
         async function deleteComposeLog(compId) {
@@ -2362,7 +2582,122 @@
             }
         }
 
-        // ==================== LOGS, PARTIES, EXPENSES & REPORTS ====================
+        // ==================== STOCK LOGS (EDIT & DELETE) ====================
+        function openEditStockLogModal(logId) {
+            const log = db.stockLogs.find(l => l.log_id === logId);
+            if (!log) return;
+            const isSale = log.type === 'SALE_OUT';
+            document.getElementById('eslId').value = log.log_id;
+            document.getElementById('eslModalHeading').innerHTML = `<i class="fa-solid fa-pen-to-square mr-1.5"></i> ${isSale ? 'বিক্রয় এন্ট্রি সংশোধন' : 'মাল ক্রয় / স্টক ইন সংশোধন'}`;
+            document.getElementById('eslProductBanner').innerText = `পণ্য: ${log.product_name} (${log.log_id})`;
+            document.getElementById('eslDate').value = String(log.log_date || '').slice(0, 10);
+            document.getElementById('eslParty').value = log.party_name;
+            document.getElementById('eslQty').value = log.qty;
+            document.getElementById('eslRateLabel').innerText = isSale ? 'একক বিক্রয়মূল্য (৳)' : 'একক ক্রয়মূল্য (৳)';
+            document.getElementById('eslRate').value = isSale ? log.unit_sell_price : log.unit_buy_price;
+            document.getElementById('eslTotal').value = log.total_amount;
+            document.getElementById('eslPaid').value = log.paid_amount;
+            document.getElementById('eslMethod').value = log.payment_method || 'Cash';
+            document.getElementById('eslDue').value = log.due_amount || 0;
+            document.getElementById('editStockLogModal').classList.remove('hidden');
+        }
+        function closeEditStockLogModal() { document.getElementById('editStockLogModal').classList.add('hidden'); }
+
+        function calcEditStockLogTotal() {
+            const qty = Number(document.getElementById('eslQty').value) || 0;
+            const rate = Number(document.getElementById('eslRate').value) || 0;
+            const total = qty * rate;
+            document.getElementById('eslTotal').value = total;
+            calcEditStockLogDue();
+        }
+        function calcEditStockLogDue() {
+            const total = Number(document.getElementById('eslTotal').value) || 0;
+            const paid = Number(document.getElementById('eslPaid').value) || 0;
+            document.getElementById('eslDue').value = Math.max(0, total - paid);
+        }
+
+        async function saveEditStockLog(e) {
+            e.preventDefault();
+            setSyncing(true);
+            try {
+                const logId = document.getElementById('eslId').value;
+                const oldLog = db.stockLogs.find(l => l.log_id === logId);
+                if (!oldLog) throw new Error('লগ পাওয়া যায়নি');
+
+                const isSale = oldLog.type === 'SALE_OUT';
+                const prod = db.products.find(p => p.product_id === oldLog.product_id);
+                const oldQty = Number(oldLog.qty) || 0;
+                const oldPaid = Number(oldLog.paid_amount) || 0;
+                const oldDue = Number(oldLog.due_amount) || 0;
+
+                const newDate = document.getElementById('eslDate').value;
+                const newParty = document.getElementById('eslParty').value.trim();
+                const newQty = Number(document.getElementById('eslQty').value) || 0;
+                const newRate = Number(document.getElementById('eslRate').value) || 0;
+                const newTotal = newQty * newRate;
+                const newPaid = Number(document.getElementById('eslPaid').value) || 0;
+                const newMethod = document.getElementById('eslMethod').value;
+                const newDue = Math.max(0, newTotal - newPaid);
+
+                // 1. Reverse old & apply new product stock
+                let unitBuy = Number(oldLog.unit_buy_price) || 0;
+                let unitSell = Number(oldLog.unit_sell_price) || 0;
+                if (isSale) unitSell = newRate;
+                else unitBuy = newRate;
+
+                if (prod) {
+                    let tIn = Number(prod.total_stock_in) || 0;
+                    let tSold = Number(prod.total_sold_qty) || 0;
+                    if (isSale) {
+                        tSold = Math.max(0, tSold - oldQty + newQty);
+                        await sbClient.from('products').update({ total_sold_qty: tSold, current_stock: Math.max(0, tIn - tSold), sell_price: unitSell, last_sale_date: newDate }).eq('product_id', prod.product_id);
+                    } else {
+                        tIn = Math.max(0, tIn - oldQty + newQty);
+                        await sbClient.from('products').update({ total_stock_in: tIn, current_stock: Math.max(0, tIn - tSold), buy_price: unitBuy, last_in_date: newDate }).eq('product_id', prod.product_id);
+                    }
+                }
+
+                // 2. Reverse old & apply new Cash/Bank balance
+                if (oldPaid > 0) {
+                    const oldKey = oldLog.payment_method === 'Bank' ? 'BankBalance' : 'CashInHand';
+                    let bal = Number(db.settings[oldKey]) || 0;
+                    await updateSettingValue(oldKey, isSale ? bal - oldPaid : bal + oldPaid);
+                }
+                if (newPaid > 0) {
+                    const newKey = newMethod === 'Bank' ? 'BankBalance' : 'CashInHand';
+                    let bal = Number(db.settings[newKey]) || 0;
+                    await updateSettingValue(newKey, isSale ? bal + newPaid : bal - newPaid);
+                }
+
+                // 3. Reverse old & apply new Party Due
+                const pType = isSale ? 'Customer' : 'Supplier';
+                if (oldDue > 0) {
+                    const oldPt = db.parties.find(x => x.type === pType && x.party_name.trim().toLowerCase() === oldLog.party_name.trim().toLowerCase());
+                    if (oldPt) await sbClient.from('parties').update({ balance: Math.max(0, (Number(oldPt.balance) || 0) - oldDue) }).eq('party_id', oldPt.party_id);
+                }
+                if (newDue > 0) {
+                    await upsertParty(pType, newParty, '', `${newDate} - ${oldLog.product_name} (${newQty})`, newDue, newDate);
+                }
+
+                const newProfit = isSale ? (unitSell - unitBuy) * newQty : 0;
+                const { error } = await sbClient.from('stock_logs').update({
+                    log_date: newDate, party_name: newParty, qty: newQty,
+                    unit_buy_price: unitBuy, unit_sell_price: unitSell,
+                    total_amount: newTotal, paid_amount: newPaid, due_amount: newDue,
+                    profit: newProfit, payment_method: newMethod
+                }).eq('log_id', logId);
+                if (error) throw error;
+
+                closeEditStockLogModal();
+                await loadAllData(false);
+                showToast('এন্ট্রি সংশোধন ও সব হিসাব সমন্বয় হয়েছে!');
+            } catch (err) {
+                showToast('ত্রুটি: ' + err.message, true);
+            } finally {
+                setSyncing(false);
+            }
+        }
+
         function renderDashboardMovements() {
             const box = document.getElementById('dashMovementPreview');
             if (db.stockLogs.length === 0) {
@@ -2421,8 +2756,9 @@
                         <td class="py-3 px-3 text-right bg-emerald-50/50 font-extrabold text-emerald-700">${isSale ? formatBDT(l.profit) : '-'}</td>
                         <td class="no-print py-3 px-3 text-center">
                             <div class="inline-flex gap-1.5">
-                                ${isSale ? `<button onclick="openMemoModal('${escapeHTML(l.log_id)}')" class="px-2 py-1.5 rounded bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-700 text-xs"><i class="fa-solid fa-print"></i></button>` : ''}
-                                <button onclick="deleteStockLog('${escapeHTML(l.log_id)}', '${escapeHTML(l.product_name)}')" class="px-2 py-1.5 rounded bg-rose-50 hover:bg-rose-600 hover:text-white text-rose-600 text-xs"><i class="fa-solid fa-trash"></i></button>
+                                ${isSale ? `<button onclick="openMemoModal('${escapeHTML(l.log_id)}')" title="মেমো" class="px-2 py-1.5 rounded bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-700 text-xs"><i class="fa-solid fa-print"></i></button>` : ''}
+                                <button onclick="openEditStockLogModal('${escapeHTML(l.log_id)}')" title="এডিট" class="px-2 py-1.5 rounded bg-amber-50 hover:bg-amber-600 hover:text-white text-amber-700 text-xs"><i class="fa-solid fa-pen"></i></button>
+                                <button onclick="deleteStockLog('${escapeHTML(l.log_id)}', '${escapeHTML(l.product_name)}')" title="ডিলিট" class="px-2 py-1.5 rounded bg-rose-50 hover:bg-rose-600 hover:text-white text-rose-600 text-xs"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -2448,9 +2784,10 @@
                         <span>বিল: <strong class="text-blue-600">${formatBDT(s.total_amount)}</strong> (${escapeHTML(s.payment_method || 'Cash')})</span>
                         <span class="font-extrabold text-emerald-700">লাভ: ${formatBDT(s.profit)}</span>
                     </div>
-                    <div class="flex justify-end gap-2 pt-1">
+                    <div class="flex justify-end gap-1.5 pt-1">
                         <button onclick="openMemoModal('${escapeHTML(s.log_id)}')" class="px-2.5 py-1 rounded-lg bg-blue-600 text-white font-bold"><i class="fa-solid fa-print mr-1"></i> মেমো</button>
-                        <button onclick="deleteStockLog('${escapeHTML(s.log_id)}', '${escapeHTML(s.product_name)}')" class="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-600 font-bold"><i class="fa-solid fa-trash"></i></button>
+                        <button onclick="openEditStockLogModal('${escapeHTML(s.log_id)}')" title="এডিট" class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 font-bold"><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="deleteStockLog('${escapeHTML(s.log_id)}', '${escapeHTML(s.product_name)}')" title="ডিলিট" class="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-600 font-bold"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 </div>
             `).join('');
