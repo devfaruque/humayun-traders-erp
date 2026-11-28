@@ -62,7 +62,7 @@
                 </button>
                 <button onclick="switchSection('stock-syn')" id="nav-stock-syn" class="w-full text-left px-4 py-2.5 rounded-lg text-slate-300 hover:bg-slate-700/50 hover:text-white flex items-center justify-between transition">
                     <span>২. সিন্থেটিক রং স্টক</span>
-                    <span class="text-xs bg-slate-700/90 text-sky-200 px-2 py-0.5 rounded">কাস্টম</span>
+                    <span class="text-xs bg-slate-700/90 text-sky-200 px-2 py-0.5 rounded">সাইজ</span>
                 </button>
                 <button onclick="switchSection('stock-hw')" id="nav-stock-hw" class="w-full text-left px-4 py-2.5 rounded-lg text-slate-300 hover:bg-slate-700/50 hover:text-white flex items-center justify-between transition">
                     <span>৩. হার্ডওয়্যার মালামাল স্টক</span>
@@ -229,6 +229,14 @@
                         <option value="L (914ml)">L - লিটার (914ml)</option>
                         <option value="HL (200ml)">HL - হাফ লিটার (200ml)</option>
                     </select>
+                    <select id="filterPaintCategory" onchange="resetPageAndRender()" class="border border-slate-300 rounded-lg px-3 py-2 text-sm font-medium bg-white text-slate-900">
+                        <option value="ALL">সকল ধরন / ক্যাটাগরি</option>
+                        <option value="সিলার">সিলার</option>
+                        <option value="ডিসটেম্পার">ডিসটেম্পার</option>
+                        <option value="প্লাস্টিক পেইন্ট">প্লাস্টিক পেইন্ট</option>
+                        <option value="ওয়েদার কোট">ওয়েদার কোট</option>
+                        <option value="আদার প্রোডাক্ট">আদার প্রোডাক্ট</option>
+                    </select>
                     <select id="pageSizeSelect" onchange="resetPageAndRender()" class="border border-slate-300 rounded-lg px-3 py-2 text-sm font-medium bg-white text-slate-900">
                         <option value="10">প্রতি পেজে ১০টি</option>
                         <option value="25" selected>প্রতি পেজে ২৫টি</option>
@@ -236,7 +244,7 @@
                         <option value="100">প্রতি পেজে ১০০টি</option>
                     </select>
                 </div>
-                <input type="text" id="searchBrand" onkeyup="resetPageAndRender()" placeholder="পণ্য বা সাইজ লিখে খুঁজুন..." class="border border-slate-300 rounded-lg px-3 py-2 text-sm w-full md:w-72 bg-white text-slate-900 focus:outline-none focus:border-[#e11d6b]">
+                <input type="text" id="searchBrand" onkeyup="resetPageAndRender()" placeholder="পণ্য, ধরন বা সাইজ লিখে খুঁজুন..." class="border border-slate-300 rounded-lg px-3 py-2 text-sm w-full md:w-72 bg-white text-slate-900 focus:outline-none focus:border-[#e11d6b]">
             </div>
 
             <div class="overflow-x-auto border border-slate-200 rounded-xl bg-white">
@@ -245,6 +253,7 @@
                         <tr class="bg-slate-800 text-white">
                             <th class="p-2.5 border border-slate-700">ব্র্যান্ড ও পণ্যের নাম</th>
                             <th class="p-2.5 border border-slate-700 text-center">সাইজ</th>
+                            <th class="p-2.5 border border-slate-700 text-center">ধরন / ক্যাটাগরি</th>
                             <th class="p-2.5 border border-slate-700 text-center">ক্রয়ের তারিখ</th>
                             <th class="p-2.5 border border-slate-700 text-right">ক্রয় দর</th>
                             <th class="p-2.5 border border-slate-700 text-center">মোট ক্রয় (পিস)</th>
@@ -278,7 +287,14 @@
                     <h3 class="font-bold text-slate-900 text-base">সিন্থেটিক রং স্টক</h3>
                     <p class="text-xs text-slate-500">সিন্থেটিক রঙের ক্রয়, বিক্রয় ও স্টক হিসাব</p>
                 </div>
-                <div class="flex gap-2">
+                <div class="flex flex-wrap gap-2">
+                    <select id="filterSynSize" onchange="renderSyntheticTable()" class="border border-slate-300 rounded-lg px-3 py-2 text-sm font-medium bg-white text-slate-900">
+                        <option value="ALL">সকল সাইজ</option>
+                        <option value="গ্যালন (3.6 লিটার)">গ্যালন (3.6 লিটার)</option>
+                        <option value="লিটার (0.91 লিটার)">লিটার (0.91 লিটার)</option>
+                        <option value="পাউন্ড (0.400 লিটার)">পাউন্ড (0.400 লিটার)</option>
+                        <option value="হাফ পাউন্ড (0.200 লিটার)">হাফ পাউন্ড (0.200 লিটার)</option>
+                    </select>
                     <button onclick="openPurchase('SYNTHETIC')" class="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-4 py-2 rounded-lg font-semibold text-sm shadow-sm transition">+ সিন্থেটিক রং ক্রয়</button>
                     <button onclick="openSale('SYNTHETIC')" class="bg-[#e11d6b] hover:bg-[#be1258] text-white px-4 py-2 rounded-lg font-semibold text-sm shadow-sm transition">+ সিন্থেটিক রং বিক্রয়</button>
                 </div>
@@ -289,6 +305,7 @@
                     <thead>
                         <tr class="bg-slate-800 text-white">
                             <th class="p-2.5 border border-slate-700">কোম্পানি ও সিন্থেটিক রঙের নাম</th>
+                            <th class="p-2.5 border border-slate-700 text-center">সাইজ</th>
                             <th class="p-2.5 border border-slate-700 text-center">একক</th>
                             <th class="p-2.5 border border-slate-700 text-center">ক্রয়ের তারিখ</th>
                             <th class="p-2.5 border border-slate-700 text-right">ক্রয় দর</th>
@@ -601,32 +618,57 @@
                 <select id="pBrand" class="w-full border border-slate-300 rounded-lg p-2 bg-white text-slate-900 font-medium"></select>
             </div>
 
-            <div id="pBrandFields" class="grid grid-cols-2 gap-3">
-                <div>
-                    <label class="block font-semibold mb-1">সাইজ</label>
-                    <select id="pSize" class="w-full border border-slate-300 rounded-lg p-2 bg-white text-slate-900">
-                        <option value="D (18L)">D - ড্রাম (18L)</option>
-                        <option value="G (3.6L)">G - গ্যালন (3.6L)</option>
-                        <option value="L (914ml)">L - লিটার (914ml)</option>
-                        <option value="HL (200ml)">HL - হাফ লিটার (200ml)</option>
-                    </select>
+            <!-- ব্র্যান্ড পেইন্ট ফিল্ড: সাইজ + ধরন/ক্যাটাগরি + পণ্যের নাম -->
+            <div id="pBrandFields" class="space-y-3">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-semibold mb-1">সাইজ *</label>
+                        <select id="pSize" class="w-full border border-slate-300 rounded-lg p-2 bg-white text-slate-900">
+                            <option value="D (18L)">D - ড্রাম (18L)</option>
+                            <option value="G (3.6L)">G - গ্যালন (3.6L)</option>
+                            <option value="L (914ml)">L - লিটার (914ml)</option>
+                            <option value="HL (200ml)">HL - হাফ লিটার (200ml)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">ধরন / ক্যাটাগরি *</label>
+                        <select id="pPaintCategory" class="w-full border-2 border-[#2563eb] rounded-lg p-2 bg-white text-slate-900 font-semibold">
+                            <option value="সিলার">সিলার</option>
+                            <option value="ডিসটেম্পার">ডিসটেম্পার</option>
+                            <option value="প্লাস্টিক পেইন্ট">প্লাস্টিক পেইন্ট</option>
+                            <option value="ওয়েদার কোট">ওয়েদার কোট</option>
+                            <option value="আদার প্রোডাক্ট">আদার প্রোডাক্ট</option>
+                        </select>
+                    </div>
                 </div>
                 <div>
-                    <label class="block font-semibold mb-1">পণ্যের নাম *</label>
-                    <input type="text" id="pSubName" list="brandSubList" placeholder="পণ্যের নাম লিখুন..." class="w-full border border-slate-300 rounded-lg p-2 bg-white text-slate-900">
+                    <label class="block font-semibold mb-1">পণ্যের নাম / শেড (ঐচ্ছিক)</label>
+                    <input type="text" id="pSubName" list="brandSubList" placeholder="পণ্যের নাম বা শেড লিখুন (ফাঁকা রাখলে ক্যাটাগরি নামই বসবে)..." class="w-full border border-slate-300 rounded-lg p-2 bg-white text-slate-900">
                     <datalist id="brandSubList"></datalist>
                 </div>
             </div>
 
-            <div id="pCustomItemFields" class="hidden grid grid-cols-2 gap-3">
-                <div>
-                    <label id="pCustomNameLabel" class="block font-semibold mb-1">হার্ডওয়্যার মালামালের নাম *</label>
-                    <input type="text" id="pCustomName" autocomplete="off" placeholder="হার্ডওয়্যার মালামালের নাম লিখুন..." class="w-full border border-slate-300 rounded-lg p-2 bg-white text-slate-900">
-                    <datalist id="customItemList"></datalist>
-                </div>
-                <div>
-                    <label id="pUnitLabel" class="block font-semibold mb-1">একক *</label>
-                    <input type="text" id="pUnit" autocomplete="off" placeholder="একক লিখুন..." class="w-full border border-slate-300 rounded-lg p-2 bg-white text-slate-900">
+            <!-- সিন্থেটিক ও হার্ডওয়্যার ফিল্ড -->
+            <div id="pCustomItemFields" class="hidden space-y-3">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label id="pCustomNameLabel" class="block font-semibold mb-1">হার্ডওয়্যার মালামালের নাম *</label>
+                        <input type="text" id="pCustomName" autocomplete="off" placeholder="হার্ডওয়্যার মালামালের নাম লিখুন..." class="w-full border border-slate-300 rounded-lg p-2 bg-white text-slate-900">
+                        <datalist id="customItemList"></datalist>
+                    </div>
+                    <div id="pSynSizeWrap" class="hidden">
+                        <label class="block font-semibold mb-1">সিন্থেটিক সাইজ *</label>
+                        <select id="pSynSize" class="w-full border-2 border-[#2563eb] rounded-lg p-2 bg-white text-slate-900 font-semibold">
+                            <option value="গ্যালন (3.6 লিটার)">গ্যালন (3.6 লিটার)</option>
+                            <option value="লিটার (0.91 লিটার)">লিটার (0.91 লিটার)</option>
+                            <option value="পাউন্ড (0.400 লিটার)">পাউন্ড (0.400 লিটার)</option>
+                            <option value="হাফ পাউন্ড (0.200 লিটার)">হাফ পাউন্ড (0.200 লিটার)</option>
+                        </select>
+                    </div>
+                    <div id="pUnitWrap">
+                        <label id="pUnitLabel" class="block font-semibold mb-1">একক *</label>
+                        <input type="text" id="pUnit" autocomplete="off" placeholder="একক লিখুন..." class="w-full border border-slate-300 rounded-lg p-2 bg-white text-slate-900">
+                    </div>
                 </div>
             </div>
 
@@ -668,11 +710,24 @@
             </div>
             <input type="hidden" id="sType" value="BRAND">
 
-            <div id="sFilterBrandWrap">
-                <label class="block font-semibold mb-1">কোম্পানি ফিল্টার</label>
-                <select id="sFilterBrand" onchange="renderSaleProductSuggestions()" class="w-full border border-slate-300 rounded-lg p-2 bg-white text-slate-900 font-medium">
-                    <option value="ALL">সকল কোম্পানি</option>
-                </select>
+            <div id="sFilterBrandWrap" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                    <label class="block font-semibold mb-1">কোম্পানি ফিল্টার</label>
+                    <select id="sFilterBrand" onchange="renderSaleProductSuggestions()" class="w-full border border-slate-300 rounded-lg p-2 bg-white text-slate-900 font-medium">
+                        <option value="ALL">সকল কোম্পানি</option>
+                    </select>
+                </div>
+                <div id="sFilterCategoryWrap">
+                    <label class="block font-semibold mb-1">ধরন / ক্যাটাগরি ফিল্টার</label>
+                    <select id="sFilterCategory" onchange="renderSaleProductSuggestions()" class="w-full border border-slate-300 rounded-lg p-2 bg-white text-slate-900 font-medium">
+                        <option value="ALL">সকল ধরন</option>
+                        <option value="সিলার">সিলার</option>
+                        <option value="ডিসটেম্পার">ডিসটেম্পার</option>
+                        <option value="প্লাস্টিক পেইন্ট">প্লাস্টিক পেইন্ট</option>
+                        <option value="ওয়েদার কোট">ওয়েদার কোট</option>
+                        <option value="আদার প্রোডাক্ট">আদার প্রোডাক্ট</option>
+                    </select>
+                </div>
             </div>
 
             <div>
@@ -804,7 +859,7 @@
 <script>
     const SUPABASE_URL = "https://wczjbxcnuimbsurdqcei.supabase.co";
     const SUPABASE_KEY = "sb_publishable_mfKqNKrIhGduIq-rWcwEcA_2CChskE3";
-    const STORAGE_KEY = "humayun_traders_full_zero_v5";
+    const STORAGE_KEY = "humayun_traders_full_zero_v6";
 
     let supabaseClient = null;
     try {
@@ -911,7 +966,7 @@
 
     async function loadData() {
         try {
-            const raw = localStorage.getItem(STORAGE_KEY);
+            const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem("humayun_traders_full_zero_v5");
             if (raw) {
                 const p = JSON.parse(raw);
                 brands = Array.isArray(p.brands) ? p.brands : [...DEFAULT_COMPANIES];
@@ -1119,10 +1174,13 @@
         document.getElementById("pModeHwBtn").className = type === "HARDWARE" ? activeCls : idleCls;
 
         const isHw = type === "HARDWARE";
+        const isSyn = type === "SYNTHETIC";
+
         document.getElementById("pModeSwitchBar").classList.toggle("hidden", isHw);
         document.getElementById("pBrandSelectWrap").classList.toggle("hidden", isHw);
         document.getElementById("pBrandFields").classList.toggle("hidden", type !== "BRAND");
         document.getElementById("pCustomItemFields").classList.toggle("hidden", type === "BRAND");
+        document.getElementById("pSynSizeWrap").classList.toggle("hidden", !isSyn);
 
         const nameInput = document.getElementById("pCustomName");
         const unitInput = document.getElementById("pUnit");
@@ -1136,12 +1194,14 @@
             unitInput.setAttribute("placeholder", "একক লিখুন...");
             unitInput.removeAttribute("list");
             unitInput.value = "";
-        } else {
-            document.getElementById("pModalTitle").textContent = "নতুন মাল ক্রয় / স্টক ইন";
+        } else if (isSyn) {
+            document.getElementById("pModalTitle").textContent = "সিন্থেটিক রং ক্রয়";
             document.getElementById("pCustomNameLabel").textContent = "সিন্থেটিক রঙের নাম *";
             nameInput.setAttribute("placeholder", "সিন্থেটিক রঙের নাম লিখুন...");
             nameInput.setAttribute("list", "customItemList");
-            unitInput.setAttribute("placeholder", "একক লিখুন...");
+            unitInput.setAttribute("placeholder", "একক লিখুন (যেমন: পিস/বক্স)...");
+        } else {
+            document.getElementById("pModalTitle").textContent = "ব্র্যান্ড পেইন্ট ক্রয় / স্টক ইন";
         }
     }
 
@@ -1163,13 +1223,15 @@
         if (!date || qty <= 0 || rate < 0) return;
 
         let brand = document.getElementById("pBrand").value;
-        let subName = "", size = "", customName = "", unit = "", key = "";
+        let subName = "", size = "", paintCategory = "", customName = "", unit = "", key = "";
 
         if (type === "BRAND") {
             if (!brand) return alert("কোম্পানি নির্বাচন করুন।");
             size = document.getElementById("pSize").value;
-            subName = document.getElementById("pSubName").value.trim() || "সাধারণ পেইন্ট";
-            key = `BRAND|${brand}|${subName}|${size}`;
+            paintCategory = document.getElementById("pPaintCategory").value;
+            const rawSub = document.getElementById("pSubName").value.trim();
+            subName = rawSub || paintCategory;
+            key = `BRAND|${brand}|${paintCategory}|${subName}|${size}`;
         } else if (type === "HARDWARE") {
             brand = "হার্ডওয়্যার";
             customName = document.getElementById("pCustomName").value.trim();
@@ -1180,14 +1242,15 @@
         } else {
             if (!brand) return alert("কোম্পানি নির্বাচন করুন।");
             customName = document.getElementById("pCustomName").value.trim();
+            size = document.getElementById("pSynSize").value;
             unit = document.getElementById("pUnit").value.trim() || "পিস";
             if (!customName) return alert("সিন্থেটিক রঙের নাম লিখুন।");
-            key = `SYNTHETIC|${brand}|${customName}|${unit}`;
+            key = `SYNTHETIC|${brand}|${customName}|${size}|${unit}`;
         }
 
         purchases.push({
             id: Date.now() + Math.floor(Math.random() * 1000),
-            type, brand, subName, size, customName, unit, key, date, qty, rate
+            type, brand, subName, size, paintCategory, customName, unit, key, date, qty, rate
         });
 
         await saveData();
@@ -1206,6 +1269,7 @@
         document.getElementById("sDate").value = todayStr();
         populateBrandSelects();
         document.getElementById("sFilterBrand").value = activeCompany;
+        document.getElementById("sFilterCategory").value = "ALL";
         setSaleMode(type);
         renderSaleProductSuggestions();
         openModal("saleModal");
@@ -1221,8 +1285,11 @@
         document.getElementById("sModeHwBtn").className = type === "HARDWARE" ? activeCls : idleCls;
 
         const isHw = type === "HARDWARE";
+        const isBrand = type === "BRAND";
+
         document.getElementById("sModeSwitchBar").classList.toggle("hidden", isHw);
         document.getElementById("sFilterBrandWrap").classList.toggle("hidden", isHw);
+        document.getElementById("sFilterCategoryWrap").classList.toggle("hidden", !isBrand);
         document.getElementById("sModalTitle").textContent = isHw ? "হার্ডওয়্যার মালামাল বিক্রয়" : "মাল বিক্রয় এন্ট্রি";
         document.getElementById("sSearchLabel").textContent = isHw ? "হার্ডওয়্যার মালামাল খুঁজুন বা নির্বাচন করুন *" : "পণ্য খুঁজুন বা নির্বাচন করুন *";
         document.getElementById("sSearchInput").setAttribute("placeholder", isHw ? "হার্ডওয়্যার মালামালের নাম লিখুন..." : "পণ্যের নাম লিখুন...");
@@ -1239,6 +1306,7 @@
                 map[p.key] = {
                     key: p.key, type: p.type, brand: p.brand,
                     subName: p.subName || "", size: p.size || "",
+                    paintCategory: p.paintCategory || "আদার প্রোডাক্ট",
                     customName: p.customName || "", unit: p.unit || "",
                     totalIn: 0, totalSold: 0,
                     lastBuyDate: p.date, lastBuyRate: Number(p.rate || 0),
@@ -1257,6 +1325,7 @@
                 map[s.key] = {
                     key: s.key, type: s.type, brand: s.brand,
                     subName: s.subName || "", size: s.size || "",
+                    paintCategory: s.paintCategory || "আদার প্রোডাক্ট",
                     customName: s.customName || s.subName || "", unit: s.unit || "পিস",
                     totalIn: 0, totalSold: 0,
                     lastBuyDate: "", lastBuyRate: Number(s.buyRate || 0),
@@ -1284,19 +1353,25 @@
     }
 
     function getItemDisplayTitle(item) {
-        if (item.type === "BRAND") return `${item.brand} — ${item.subName} (${item.size})`;
+        if (item.type === "BRAND") {
+            const cat = item.paintCategory ? `[${item.paintCategory}] ` : "";
+            return `${item.brand} — ${cat}${item.subName} (${item.size})`;
+        }
         if (item.type === "HARDWARE") return `${item.customName} [${item.unit}]`;
-        return `${item.brand} — ${item.customName} [${item.unit}]`;
+        const synSize = item.size ? ` (${item.size})` : "";
+        return `${item.brand} — ${item.customName}${synSize} [${item.unit}]`;
     }
 
     function renderSaleProductSuggestions() {
         const type = document.getElementById("sType").value;
         const brandFilter = document.getElementById("sFilterBrand").value;
+        const catFilter = document.getElementById("sFilterCategory").value;
         const q = (document.getElementById("sSearchInput").value || "").toLowerCase().trim();
         const { brandList, synList, hwList } = calculateStock();
 
         let list = type === "BRAND" ? brandList : (type === "SYNTHETIC" ? synList : hwList);
         if (type !== "HARDWARE" && brandFilter !== "ALL") list = list.filter(i => i.brand === brandFilter);
+        if (type === "BRAND" && catFilter !== "ALL") list = list.filter(i => (i.paintCategory || "আদার প্রোডাক্ট") === catFilter);
 
         const matches = list.filter(item => !q || getItemDisplayTitle(item).toLowerCase().includes(q));
         const box = document.getElementById("sSuggestionsBox");
@@ -1339,11 +1414,13 @@
         if (selectedSaleItem) return true;
         const type = document.getElementById("sType").value;
         const brandFilter = document.getElementById("sFilterBrand").value;
+        const catFilter = document.getElementById("sFilterCategory").value;
         const q = (document.getElementById("sSearchInput").value || "").toLowerCase().trim();
         const { brandList, synList, hwList } = calculateStock();
 
         let list = type === "BRAND" ? brandList : (type === "SYNTHETIC" ? synList : hwList);
         if (type !== "HARDWARE" && brandFilter !== "ALL") list = list.filter(i => i.brand === brandFilter);
+        if (type === "BRAND" && catFilter !== "ALL") list = list.filter(i => (i.paintCategory || "আদার প্রোডাক্ট") === catFilter);
 
         const matches = list.filter(item => !q || getItemDisplayTitle(item).toLowerCase().includes(q));
         if (matches.length > 0) {
@@ -1375,6 +1452,7 @@
             subName: selectedSaleItem.subName || selectedSaleItem.customName,
             customName: selectedSaleItem.customName || selectedSaleItem.subName,
             size: selectedSaleItem.size,
+            paintCategory: selectedSaleItem.paintCategory || "",
             unit: selectedSaleItem.unit,
             key: selectedSaleItem.key,
             date, qty,
@@ -1631,13 +1709,16 @@
     function renderBrandTable() {
         const { brandList } = calculateStock();
         const sizeFilter = document.getElementById("filterSize").value;
+        const catFilter = document.getElementById("filterPaintCategory").value;
         const q = (document.getElementById("searchBrand").value || "").toLowerCase().trim();
         const pageSize = Number(document.getElementById("pageSizeSelect").value || 25);
 
         const filtered = brandList.filter(item => {
+            const itemCat = item.paintCategory || "আদার প্রোডাক্ট";
             if (activeCompany !== "ALL" && item.brand !== activeCompany) return false;
             if (sizeFilter !== "ALL" && item.size !== sizeFilter) return false;
-            return !q || `${item.brand} ${item.subName} ${item.size}`.toLowerCase().includes(q);
+            if (catFilter !== "ALL" && itemCat !== catFilter) return false;
+            return !q || `${item.brand} ${item.subName} ${item.size} ${itemCat}`.toLowerCase().includes(q);
         });
 
         const totalItems = filtered.length;
@@ -1650,15 +1731,17 @@
 
         const tbody = document.getElementById("brandStockBody");
         if (pageItems.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="12" class="p-8 text-center text-slate-400 font-semibold">কোনো ব্র্যান্ড পেইন্ট এন্ট্রি নেই।</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="13" class="p-8 text-center text-slate-400 font-semibold">কোনো ব্র্যান্ড পেইন্ট এন্ট্রি নেই।</td></tr>`;
         } else {
             tbody.innerHTML = pageItems.map(item => {
                 const avail = Number(item.totalIn || 0) - Number(item.totalSold || 0);
                 const val = Math.max(0, avail) * Number(item.lastBuyRate || 0);
+                const itemCat = item.paintCategory || "আদার প্রোডাক্ট";
                 return `
                     <tr class="hover:bg-slate-50">
                         <td class="p-2.5 border border-slate-200 font-bold text-slate-900"><span class="text-[#be1258] block text-xs">${item.brand}</span>${item.subName}</td>
                         <td class="p-2.5 border border-slate-200 text-center font-bold text-[#2563eb]">${item.size}</td>
+                        <td class="p-2.5 border border-slate-200 text-center"><span class="px-2 py-0.5 rounded bg-pink-50 text-[#be1258] font-bold text-xs">${itemCat}</span></td>
                         <td class="p-2.5 border border-slate-200 text-center text-xs">${item.lastBuyDate || "-"}</td>
                         <td class="p-2.5 border border-slate-200 text-right font-semibold">${formatMoney(item.lastBuyRate)}</td>
                         <td class="p-2.5 border border-slate-200 text-center font-bold">${item.totalIn}</td>
@@ -1684,11 +1767,16 @@
 
     function renderSyntheticTable() {
         const { synList } = calculateStock();
-        const filtered = activeCompany === "ALL" ? synList : synList.filter(i => i.brand === activeCompany);
+        const synSizeFilter = document.getElementById("filterSynSize")?.value || "ALL";
+        const filtered = synList.filter(i => {
+            if (activeCompany !== "ALL" && i.brand !== activeCompany) return false;
+            if (synSizeFilter !== "ALL" && (i.size || "") !== synSizeFilter) return false;
+            return true;
+        });
         const tbody = document.getElementById("syntheticStockBody");
 
         if (filtered.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="12" class="p-8 text-center text-slate-400 font-semibold">কোনো সিন্থেটিক রং এন্ট্রি নেই।</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="13" class="p-8 text-center text-slate-400 font-semibold">কোনো সিন্থেটিক রং এন্ট্রি নেই।</td></tr>`;
             return;
         }
 
@@ -1698,6 +1786,7 @@
             return `
                 <tr class="hover:bg-slate-50">
                     <td class="p-2.5 border border-slate-200 font-bold text-slate-900"><span class="text-[#2563eb] block text-xs">${item.brand}</span>${item.customName}</td>
+                    <td class="p-2.5 border border-slate-200 text-center font-bold text-[#be1258]">${item.size || "-"}</td>
                     <td class="p-2.5 border border-slate-200 text-center font-semibold">${item.unit}</td>
                     <td class="p-2.5 border border-slate-200 text-center text-xs">${item.lastBuyDate || "-"}</td>
                     <td class="p-2.5 border border-slate-200 text-right font-semibold">${formatMoney(item.lastBuyRate)}</td>
@@ -1784,7 +1873,9 @@
         `).join("") : `<tr><td colspan="6" class="p-6 text-center text-slate-400">কোনো ক্যাশ মেমো নেই</td></tr>`;
 
         document.getElementById("tradePurchaseBody").innerHTML = purchases.length ? purchases.map(p => {
-            const label = p.type === "HARDWARE" ? `${p.customName} [${p.unit}]` : `${p.brand} — ${p.subName || p.customName}`;
+            const label = p.type === "HARDWARE"
+                ? `${p.customName} [${p.unit}]`
+                : (p.type === "SYNTHETIC" ? `${p.brand} — ${p.customName} (${p.size || ""})` : `${p.brand} — ${p.paintCategory ? `[${p.paintCategory}] ` : ""}${p.subName} (${p.size})`);
             return `
                 <tr>
                     <td class="p-2">${p.date}</td>
@@ -1796,7 +1887,9 @@
         }).join("") : `<tr><td colspan="4" class="p-6 text-center text-slate-400">কোনো ক্রয় নেই</td></tr>`;
 
         document.getElementById("tradeSalesBody").innerHTML = sales.length ? sales.map(s => {
-            const label = s.type === "HARDWARE" ? `${s.customName} [${s.unit}]` : `${s.brand} — ${s.subName || s.customName}`;
+            const label = s.type === "HARDWARE"
+                ? `${s.customName} [${s.unit}]`
+                : (s.type === "SYNTHETIC" ? `${s.brand} — ${s.customName} (${s.size || ""})` : `${s.brand} — ${s.paintCategory ? `[${s.paintCategory}] ` : ""}${s.subName} (${s.size})`);
             return `
                 <tr>
                     <td class="p-2">${s.date}</td>
